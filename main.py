@@ -78,7 +78,7 @@ Current filters:
     if menu == 1:
         print("")
         print("""Type "exit" to exit""")
-        datafile = inputStr("Please enter the name of your data file: ")
+        datafile = inputStr("Please enter the name of your datafile (with extension, if any): ")
 
         #Only run the dataload if user does not decide to exit
         if datafile != "exit":
