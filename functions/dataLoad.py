@@ -73,7 +73,7 @@ def dataLoad(filename):
         while True:
             try:
                 #Temp
-                if not 10<int(rowStr[0])<60:
+                if not 10<round(float(rowStr[0]))<60:
                     print("Erroneous line, ValueError at line",i+1,"skipping...")
                     skip = True
                     break
@@ -103,7 +103,7 @@ def dataLoad(filename):
             continue
         
         #Initial values
-        temp = int(rowStr[0])
+        temp = round(float(rowStr[0]))
         growth = float(rowStr[1])
         bacInt = int(rowStr[2])
         
