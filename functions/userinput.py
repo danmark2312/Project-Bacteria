@@ -32,7 +32,16 @@ def inputStr(prompt):
 
 def inputNumber(prompt):
     """
-    Userinput that only allows numbers and converts them to float values
+    Userinput that only allows any number and converts them to float values
+
+    INPUT:
+        prompt: any number
+
+    OUTPUT:
+        num = Float
+
+    USAGE:
+        inputStr("Please enter a number: ")
     """
     while True:
         try:
