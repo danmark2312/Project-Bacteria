@@ -22,7 +22,6 @@ USAGE:
 @author: Simon Moe Sørensen, moe.simon@gmail.com
 """
 import csv
-from functions.userinput import inputStr
 
 
 def dataLoad(filename):
@@ -36,22 +35,10 @@ def dataLoad(filename):
     #Loading the collumns with row-values
     datafile = []
 
-    while True:
-        try:
-            #Check if the user wants to exit
-            if filename == "exit":
-                break
+    with open(filename, newline='') as inputfile:
+        for row in csv.reader(inputfile):
+            datafile.append(row)
 
-            with open(filename, newline='') as inputfile:
-                for row in csv.reader(inputfile):
-                    datafile.append(row)
-            break
-        except FileNotFoundError:
-            print("")
-            print("File not found, please enter a valid datafile name")
-            filename = inputStr("Please enter the name of your datafile: ")
-
-            continue
 
     import numpy as np
 
