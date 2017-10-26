@@ -23,6 +23,10 @@ USAGE:
 import numpy as np
 import matplotlib.pyplot as plt
 
+#Style the plots so they look prettier
+import matplotlib
+matplotlib.style.use('ggplot')
+
 def dataPlot(data):
     #Initial values
     sal = "Salmonella enterica"

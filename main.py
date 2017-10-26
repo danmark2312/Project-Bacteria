@@ -73,62 +73,77 @@ Current filters:
 ====================================================================
                 """.format(filters,rangeFilter,lowerRange,upperRange))
 
-    menu = displayMenu(["Load data", "Filter data","Display statistics","Generate plots","Show current data","Generate datafile","Quit"])
+    menu = displayMenu(["Load data", "Filter data","Display statistics",
+                        "Generate plots","Show current data","Generate datafile","Quit"])
 
     if menu == 1:
         print("")
         print("""Type "exit" to exit""")
         datafile = inputStr("Please enter the name of your datafile (with extension, if any): ")
 
-        #Only run the dataload if user does not decide to exit
-        if datafile != "exit":
-
-            data = dataLoad(datafile)
-
+        
+        #Check for valid filename and exit condition
+        while True:
+            try:
+                data = dataLoad(datafile)
+                break
+                
+            except FileNotFoundError:
+                
+                if datafile == "exit":
+                    break
+                
+                print("")
+                print("File not found, please enter a valid datafile name")
+                datafile = inputStr("Please enter the name of your datafile: ")
+                
+                
+        if datafile != "exit":      
+            
             #Backup of data
             dataBackup = data
-
+    
             #Set data as loaded
             isData = 1
-
+    
             #See if we already have filters
             #We do this in case of the user loading a new datafile, while having filters specified
             if (filters != "//No bacteria filter//") or ((lowerRange and upperRange) != -1):
-
+    
                 #See filterData.py for full comments
                 #Filters of bacteria
                 if filters != "//No bacteria filter//":
-
+    
                     filtersDat = filters.split(", ")
-
+    
                     dataDummy = [0,0,0]
-
+    
                     for i in range(len(filtersDat)):
                         dataStack = dataBackup[dataBackup[:,2]==filtersDat[i]]
-
+    
                         #Stack data
                         dataDummy = np.vstack((dataStack,dataDummy))
-
+    
                     #Redefine from placeholder and remove zero
                     data = dataDummy[0:len(dataDummy)-1]
-
+    
                 #No bacteria filters
                 else:
                     data = dataBackup
-
-
+    
+    
                 #Apply range filters
                 if upperRange and lowerRange != -1:
                     if rangeFilter == "Growth Rate" :
                         data = data[data[:,1]>=lowerRange]
                         data = data[data[:,1]<=upperRange]
-
+    
                     if rangeFilter == "Temperature" :
                         data = data[data[:,0]>=lowerRange]
                         data = data[data[:,0]<=upperRange]
-
+    
                 print("Data loaded succesfully, with filters")
-
+    
             else:
                 print("")
                 print("Data loaded succesfully")
